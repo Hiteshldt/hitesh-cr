@@ -8,10 +8,6 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <!-- Animate.css for animations -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
-
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<!-- Animate.css for animations -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 <!-- Include intl-tel-input for phone number input -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
 <style>
@@ -41,6 +37,16 @@
   .signup-form .btn:focus {
     box-shadow: none;
   }
+  .country-list {
+    width: 100%;
+  }
+  .selected-flag {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 100%;
+  }
+
 </style>
 </head>
 <body>
@@ -71,60 +77,21 @@
             </div>
     
             <div class="form-group">
-              <input type="tel" class="form-control" id="phone" placeholder="Phone" name="phone" required>
+              <input type="tel" class="form-control" id="phone" placeholder="Phone" name="phone" pattern="[0-9]+" required>
             </div>
 
           </div>
         </div>
         <div class="form-group">
-          <input type="password" class="form-control" placeholder="Password" name="password" required>
+          <input type="password" class="form-control" placeholder="Password" name="password" minlength="8" required>
         </div>
-        <button id="signUpbtn" type="submit" name="submit" class="btn btn-primary btn-block">Sign Up</button>
+        <button type="submit" name="submit" class="btn btn-primary btn-block" id="signupButton">Sign Up</button>
         <button type="button" onclick="location.href='/auth/login';" class="btn btn-link btn-block">Login</button>
       </form>
     </div>
   </div>
 </div>
 <!-- Bootstrap and jQuery libraries -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<!-- intl-tel-input library -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
-<!-- Script to initialize intl-tel-input and populate countries -->
-<script>
-  $(document).ready(function() {
-    var input = document.querySelector("#phone");
-    var iti = window.intlTelInput(input, {
-      utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
-    });
-
-    // Populate country dropdown
-    var countryData = iti.getCountryData();
-    $.each(countryData, function(i, country) {
-      $('#country').append($('<option>', {
-        value: country.iso2,
-        text: country.name
-      }));
-    });
-
-    // Change country code on country select
-    $('#country').change(function() {
-      iti.setCountry(this.value);
-    });
-
-    // Sync country selection with entered phone number
-    input.addEventListener('countrychange', function() {
-      $('#country').val(iti.getSelectedCountryData().iso2);
-    });
-
-    // Form submission handler
-    $('#signup-form').submit(function(e) {
-      e.preventDefault();
-      // Process form submission here
-    });
-  });
-</script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -172,10 +139,9 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-
 <script>
 
-let btn = document.querySelector('#signUpbtn');
+let btn = document.querySelector('#signupButton');
 btn.addEventListener('click', async function(e) {
   e.preventDefault();
 
@@ -185,6 +151,44 @@ btn.addEventListener('click', async function(e) {
   let signUpCountry = document.querySelector('input[name="country"]').value;
   let signUpPhone = document.querySelector('input[name="phone"]').value;
   let signUpPassword = document.querySelector('input[name="password"]').value;
+
+  // Validate email
+  let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(signUpEmail)) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Invalid Email',
+        text: 'Please enter a valid email address.',
+        width: '250px',
+        height: '250px'
+      });
+      return;
+    }
+
+    // Validate password length
+    if (signUpPassword.length < 8) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Password too short',
+        text: 'Password must be at least 8 characters long.',
+        width: '250px',
+        height: '250px'
+      });
+      return;
+    }
+
+    // Validate phone number format
+    let phoneRegex = /^\d{10}$/;
+    if (!phoneRegex.test(signUpPhone)) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Invalid Phone Number',
+        text: 'Phone number must be 10 digits and contain only numbers.',
+        width: '250px',
+        height: '250px'
+      });
+      return;
+    }
 
   try {
     let resp = await axios.post('/auth/signup', {
@@ -203,8 +207,8 @@ btn.addEventListener('click', async function(e) {
           icon: 'success',
           title: 'Signed Up!',
           text: 'Your account has been created successfully.',
-          width: '300px', // Apply custom styles
-          height: '300px'
+          width: '250px', // Apply custom styles
+          height: '250px'
         }).then((result) => {
           // Redirect to the login page after the user acknowledges the alert
           if (result.value) {
@@ -218,8 +222,8 @@ btn.addEventListener('click', async function(e) {
         icon: 'error',
         title: 'Oops...',
         text: 'Something went wrong with your signup!',
-        width: '300px', // Apply custom styles
-        height: '300px'
+        width: '250px', // Apply custom styles
+        height: '250px'
       });
     }
   } catch (error) {
@@ -228,8 +232,8 @@ btn.addEventListener('click', async function(e) {
       icon: 'error',
       title: 'Oops...',
       text: 'An error occurred during sign up.',
-      width: '300px', // Apply custom styles
-      height: '300px'
+      width: '250px', // Apply custom styles
+      height: '250px'
     });
   }
 });
