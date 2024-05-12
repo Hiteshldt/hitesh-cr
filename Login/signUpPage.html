@@ -170,22 +170,67 @@
 <!-- ROUTING -->
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 <script>
-  let btn = document.querySelector('#signUpbtn');
-  btn.addEventListener('click', async function(e){
 
-    e.preventDefault();
+let btn = document.querySelector('#signUpbtn');
+btn.addEventListener('click', async function(e) {
+  e.preventDefault();
 
-    let signUpName = document.querySelector('input[name="name"]').value;
-    let signUpEmail = document.querySelector('input[name="email"]').value;
-    let signUpDeviceId = document.querySelector('input[name="deviceID"]').value;
-    let signUpCountry = document.querySelector('input[name="country"]').value;
-    let signUpPhone = document.querySelector('input[name="phone"]').value;
-    let signUpPassword = document.querySelector('input[name="password"]').value;
+  let signUpName = document.querySelector('input[name="name"]').value;
+  let signUpEmail = document.querySelector('input[name="email"]').value;
+  let signUpDeviceId = document.querySelector('input[name="deviceID"]').value;
+  let signUpCountry = document.querySelector('input[name="country"]').value;
+  let signUpPhone = document.querySelector('input[name="phone"]').value;
+  let signUpPassword = document.querySelector('input[name="password"]').value;
 
-    let resp = await axios.post('/auth/signup', {signUpName, signUpEmail, signUpDeviceId, signUpCountry, signUpPhone, signUpPassword});
-    console.log('resp', resp);
+  try {
+    let resp = await axios.post('/auth/signup', {
+      signUpName, 
+      signUpEmail, 
+      signUpDeviceId, 
+      signUpCountry, 
+      signUpPhone, 
+      signUpPassword
+    });
 
-  })
+    // Check if the signup was successful and redirect
+    if (resp.status === 200) {
+      setTimeout(() => { // Delay the success popup
+        Swal.fire({
+          icon: 'success',
+          title: 'Signed Up!',
+          text: 'Your account has been created successfully.',
+          width: '300px', // Apply custom styles
+          height: '300px'
+        }).then((result) => {
+          // Redirect to the login page after the user acknowledges the alert
+          if (result.value) {
+            window.location.href = '/auth/login';
+          }
+        });
+      }, 500); // 500 milliseconds delay
+    } else {
+      // Use SweetAlert to show an error message
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong with your signup!',
+        width: '300px', // Apply custom styles
+        height: '300px'
+      });
+    }
+  } catch (error) {
+    // Use SweetAlert to show an error message
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'An error occurred during sign up.',
+      width: '300px', // Apply custom styles
+      height: '300px'
+    });
+  }
+});
 </script>

@@ -39,6 +39,9 @@
     text-align: center;
     margin-top: 1rem;
   }
+  .swal-custom {
+  width: 100px;
+}
 </style>
 </head>
 <body>
@@ -78,8 +81,11 @@
 <!-- This funtion is to send a post request with email and pass when btn is clieck and then return the dashboard page if correct -->
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 <script>
+
   document.querySelector('#loginForm').addEventListener('submit', async function(e){
   e.preventDefault();
 
@@ -91,10 +97,23 @@
     if (response.headers['content-type'].indexOf('html') !== -1) {
       // If the response contains HTML, it means the login was successful
       window.location.href = '/dashboard';
+      Swal.fire({
+        icon: 'success',
+        title: 'Logged Up!',
+        text: 'Welcome to the Dashboard',
+        width: '300px', // Apply custom styles
+        height: '300px'
+    });
     } else {
       // If the response is JSON, it means the credentials were wrong
       console.log("wrongCred");
-      alert('Incorrect email or password.');
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Email or Password is incorrect',
+        width: '300px', // Apply custom styles
+        height: '300px'
+    });
     }
   } catch (error) {
     console.error('An error occurred during login:', error);
