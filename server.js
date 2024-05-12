@@ -138,10 +138,10 @@ async function postLoginPage(req, res, next) {
         let uid = user['.id'];
         let token = jwt.sign({payload:uid}, JWT_KEY);
 
-        const now = new Date();
-        const expireTime = now.getTime() + 1000 * 60 * 60 * 24 * 7;
-        now.setTime(expireTime);
-        res.cookie('isLoggedIn', token, { httpOnly: true, expires: now, path: '/' });
+const now = new Date();
+const expireTime = now.getTime() + 1000 * 60 * 60 * 24 * 7;
+now.setTime(expireTime);
+res.cookie('isLoggedIn', token, { httpOnly: true, expires: now, path: '/' });
 
         next();
     } else {
