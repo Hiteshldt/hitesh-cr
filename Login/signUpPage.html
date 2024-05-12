@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Signup Page</title>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<!-- Animate.css for animations -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<!-- Animate.css for animations -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+<!-- Include intl-tel-input for phone number input -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
+<style>
+  body {
+    background-color: #f7f7f7;
+    font-family: 'Roboto', sans-serif;
+  }
+  .signup-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .signup-form {
+    padding: 2rem;
+    background: #fff;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+    border-radius: 0.5rem;
+  }
+  .signup-form .form-control {
+    border-radius: 2rem;
+  }
+  .signup-form .btn {
+    border-radius: 2rem;
+    padding: 0.5rem 1.5rem;
+  }
+  .signup-form .btn:focus {
+    box-shadow: none;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="signup-container">
+    <div class="signup-form animated fadeIn">
+      <!-- Logo Placeholder -->
+      <div class="text-center mb-4">
+        <img src="logo.png" alt="Logo" style="width: 100px;">
+      </div>
+      <!-- Signup Form -->
+      <form id="signupForm">
+        <div class="form-group">
+          <input type="name" class="form-control" placeholder="Name" name="name" required>
+        </div>
+        <div class="form-group">
+          <input type="email" class="form-control" placeholder="Email" name="email" required>
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Device ID" name="deviceID" required>
+        </div>
+        <div class="form-group">
+          <!-- Modified: Integrated ISD code selection with phone number -->
+          <div>
+
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Country" name="country" required>
+            </div>
+    
+            <div class="form-group">
+              <input type="tel" class="form-control" id="phone" placeholder="Phone" name="phone" required>
+            </div>
+
+          </div>
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" placeholder="Password" name="password" required>
+        </div>
+        <button id="signUpbtn" type="submit" name="submit" class="btn btn-primary btn-block">Sign Up</button>
+        <button type="button" onclick="location.href='/auth/login';" class="btn btn-link btn-block">Login</button>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Bootstrap and jQuery libraries -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!-- intl-tel-input library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+<!-- Script to initialize intl-tel-input and populate countries -->
+<script>
+  $(document).ready(function() {
+    var input = document.querySelector("#phone");
+    var iti = window.intlTelInput(input, {
+      utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+    });
+
+    // Populate country dropdown
+    var countryData = iti.getCountryData();
+    $.each(countryData, function(i, country) {
+      $('#country').append($('<option>', {
+        value: country.iso2,
+        text: country.name
+      }));
+    });
+
+    // Change country code on country select
+    $('#country').change(function() {
+      iti.setCountry(this.value);
+    });
+
+    // Sync country selection with entered phone number
+    input.addEventListener('countrychange', function() {
+      $('#country').val(iti.getSelectedCountryData().iso2);
+    });
+
+    // Form submission handler
+    $('#signup-form').submit(function(e) {
+      e.preventDefault();
+      // Process form submission here
+    });
+  });
+</script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!-- intl-tel-input library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+<!-- Script to initialize intl-tel-input and populate countries -->
+<script>
+  $(document).ready(function() {
+    var input = document.querySelector("#phone");
+    var iti = window.intlTelInput(input, {
+      utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+    });
+
+    // Populate country dropdown
+    var countryData = iti.getCountryData();
+    $.each(countryData, function(i, country) {
+      $('#country').append($('<option>', {
+        value: country.iso2,
+        text: country.name
+      }));
+    });
+
+    // Change country code on country select
+    $('#country').change(function() {
+      iti.setCountry(this.value);
+    });
+
+    // Sync country selection with entered phone number
+    input.addEventListener('countrychange', function() {
+      $('#country').val(iti.getSelectedCountryData().iso2);
+    });
+
+    // Form submission handler
+    $('#signup-form').submit(function(e) {
+      e.preventDefault();
+      // Process form submission here
+    });
+  });
+</script>
+</body>
+</html>
+
+<!-- ROUTING -->
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+  let btn = document.querySelector('#signUpbtn');
+  btn.addEventListener('click', async function(e){
+
+    e.preventDefault();
+
+    let signUpName = document.querySelector('input[name="name"]').value;
+    let signUpEmail = document.querySelector('input[name="email"]').value;
+    let signUpDeviceId = document.querySelector('input[name="deviceID"]').value;
+    let signUpCountry = document.querySelector('input[name="country"]').value;
+    let signUpPhone = document.querySelector('input[name="phone"]').value;
+    let signUpPassword = document.querySelector('input[name="password"]').value;
+
+    let resp = await axios.post('/auth/signup', {signUpName, signUpEmail, signUpDeviceId, signUpCountry, signUpPhone, signUpPassword});
+    console.log('resp', resp);
+
+  })
+</script>

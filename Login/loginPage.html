@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login Page</title>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<!-- Animate.css for animations -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+<style>
+  body {
+    background-color: #f7f7f7;
+    font-family: 'Roboto', sans-serif;
+  }
+  .login-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .login-form {
+    padding: 2rem;
+    background: #fff;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+    border-radius: 0.5rem;
+  }
+  .login-form .form-control {
+    border-radius: 2rem;
+  }
+  .login-form .btn {
+    border-radius: 2rem;
+    padding: 0.5rem 1.5rem;
+  }
+  .login-form .btn:focus {
+    box-shadow: none;
+  }
+  .signup-btn {
+    text-align: center;
+    margin-top: 1rem;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="login-container">
+    <div class="login-form animated fadeIn">
+      <!-- Logo Placeholder -->
+      <div class="text-center mb-4">
+        <img src="logo.png" alt="Logo" style="width: 100px;">
+      </div>
+      <!-- Login Form -->
+      <form method="post" id="loginForm">
+        <div class="form-group">
+          <input type="email" class="form-control" placeholder="Email Address" name="email" required>
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" placeholder="Password" name="password" required>
+        </div>
+        <button id="loginUpbtn" type="submit" name="submit" class="btn btn-primary btn-block">Login</button>
+      </form>
+      
+      <div class="signup-btn">
+        <button onclick="location.href='/auth/signup';" class="btn btn-outline-secondary">Sign Up</button>
+        <button type="button" onclick="location.href='/auth/recover';" class="btn btn-link btn-block">forgot password?</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Bootstrap and jQuery libraries -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+<!-- Routing -->
+<!-- This funtion is to send a post request with email and pass when btn is clieck and then return the dashboard page if correct -->
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+  document.querySelector('#loginForm').addEventListener('submit', async function(e){
+  e.preventDefault();
+
+  let loginEmail = document.querySelector('input[type="email"]').value;
+  let loginPassword = document.querySelector('input[type="password"]').value;
+
+  try {
+    let response = await axios.post('/auth/login', {loginEmail, loginPassword});
+    if (response.headers['content-type'].indexOf('html') !== -1) {
+      // If the response contains HTML, it means the login was successful
+      window.location.href = '/dashboard';
+    } else {
+      // If the response is JSON, it means the credentials were wrong
+      console.log("wrongCred");
+      alert('Incorrect email or password.');
+    }
+  } catch (error) {
+    console.error('An error occurred during login:', error);
+  }
+});
+
+</script>
