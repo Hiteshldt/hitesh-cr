@@ -1,15 +1,20 @@
 {
     "version": 2,
     "builds": [
-        {
-            "src": "server.js",
-            "user": "@vercel/node"
-        }
+      {
+        "src": "index.js",
+        "use": "@vercel/node"
+      }
     ],
     "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "server.js"
-        }
-    ]
-}
+      {
+        "src": "/(.*)",
+        "dest": "/index.js"
+      }
+    ],
+    "env": {
+      "MongoDb_Link": "@mongo_db_link",
+      "jwt_key": "@jwt_key"
+    }
+  }
+  
