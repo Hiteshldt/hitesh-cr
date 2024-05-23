@@ -1,0 +1,522 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap');
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+a {
+	text-decoration: none;
+}
+
+li {
+	list-style: none;
+}
+
+:root {
+	--poppins: 'Poppins', sans-serif;
+	--lato: 'Lato', sans-serif;
+
+	--light: #F9F9F9;
+	--green: #16973a;
+	--light-green: #89ffab;
+	--light-blue: #CFE8FF;
+	--grey: #eee;
+	--dark-grey: #AAAAAA;
+	--dark: #342E37;
+	--red: #DB504A;
+	--light-red: #ff938f;
+	--yellow: #FFCE26;
+	--light-yellow: #FFF2C6;
+	--orange: #FD7238;
+	--light-orange: #FFE0D3;
+}
+
+html {
+	overflow-x: hidden;
+}
+
+body {
+	background: var(--grey);
+	overflow-x: hidden;
+	font-family: var(--lato);
+}
+
+
+/* SIDEBAR */
+#sidebar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 280px;
+	height: 100%;
+	background: var(--light);
+	z-index: 2000;
+	font-family: var(--lato);
+	transition: .3s ease;
+	overflow-x: hidden;
+	scrollbar-width: none;
+}
+#sidebar::--webkit-scrollbar {
+	display: none;
+}
+#sidebar.hide {
+	width: 00px; 							/* */
+}
+#hidethings {
+	display: none;
+}
+
+/* For the brandname and icond */
+
+#sidebar .brand {
+	padding: 25px 1px 0px;
+	font-size: 22px;
+	font-weight: 700;
+	height: 56px;
+	width: 40px;
+	display: flex;
+	align-items: center;
+	color: var(--blue);
+	position: sticky;
+	top: 0;
+	left: 0;
+	background: var(--light);
+	z-index: 500;
+	box-sizing: content-box;
+}
+#sidebar .brand .bx {
+	min-width: 60px; 						/* */
+	display: flex;
+	justify-content: center;
+}
+#sidebar .side-menu {
+	width: 100%;
+	margin-top: 48px;
+}
+#sidebar .side-menu li {
+	height: 48px;
+	background: transparent;
+	margin-left: 6px;
+	border-radius: 48px 0 0 48px;
+	padding: 4px;
+}
+#sidebar .side-menu li.active {
+	background: var(--grey);
+	position: relative;
+}
+#sidebar .side-menu li.active::before {
+	content: '';
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	top: -40px;
+	right: 0;
+	box-shadow: 20px 20px 0 var(--grey);
+	z-index: -1;
+}
+#sidebar .side-menu li.active::after {
+	content: '';
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	bottom: -40px;
+	right: 0;
+	box-shadow: 20px -20px 0 var(--grey);
+	z-index: -1;
+}
+#sidebar .side-menu li a {
+	width: 100%;
+	height: 100%;
+	background: var(--light);
+	display: flex;
+	align-items: center;
+	border-radius: 48px;
+	font-size: 16px;
+	color: var(--dark);
+	white-space: nowrap;
+	overflow-x: hidden;
+}
+#sidebar .side-menu.top li.active a {
+	color: var(--blue);
+}
+#sidebar.hide .side-menu li a {
+	width: calc(48px - (4px * 2));
+	transition: width .3s ease;
+}
+#sidebar .side-menu li a.logout {
+	color: var(--red);
+}
+#sidebar .side-menu li a .bx {
+	min-width: calc(60px  - ((4px + 6px) * 2)); 			/* */
+	display: flex;
+	justify-content: center;
+}
+/* SIDEBAR */
+
+
+/* CONTENT */
+#content {
+	position: relative;
+	width: calc(100% - 280px);
+	left: 280px;
+	transition: .3s ease;
+}
+#sidebar.hide ~ #content {
+	width: calc(100% - 0px); 					/* */
+	left: 0px; /* */
+
+}
+
+
+/* NAVBAR */
+#content nav {
+	height: 56px;
+	background: var(--light);
+	padding: 0 24px;
+	display: flex;
+	align-items: center;
+	grid-gap: 24px;
+	font-family: var(--lato);
+	position: sticky;
+	top: 0;
+	left: 0;
+	z-index: 1000;
+}
+#content nav::before {
+	content: '';
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	bottom: -40px;
+	left: 0;
+	border-radius: 50%;
+	box-shadow: -20px -20px 0 var(--light);
+}
+#content nav a {
+	color: var(--dark);
+}
+#content nav .bx.bx-menu {
+	cursor: pointer;
+	color: var(--dark);
+}
+#content nav .nav-link {
+	font-size: 16px;
+	transition: .3s ease;
+}
+
+#content nav form {
+	max-width: 400px;
+	width: 100%;
+	margin-right: auto;
+}
+
+#content nav .profile img {
+	width: 36px;
+	height: 36px;
+	object-fit: cover;
+	border-radius: 50%;
+}
+
+
+/* Dashboard */
+
+#content .Dashboard-Page {
+	width: 100%;
+	padding: 36px 24px;
+	font-family: var(--poppins);
+	max-height: calc(100vh - 56px);
+	overflow-y: auto;
+}
+#content .Dashboard-Page .head-title {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	grid-gap: 16px;
+	flex-wrap: wrap;
+}
+#content .Dashboard-Page .head-title .left h1 {
+	font-size: 36px;
+	font-weight: 600;
+	margin-bottom: 10px;
+	color: var(--dark);
+}
+
+
+/* For download button */
+
+#content .Dashboard-Page .head-title .btn-download {
+	height: 36px;
+	padding: 0 8px;
+	border-radius: 2px;
+	background: var(--blue);
+	color: var(--light);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	grid-gap: 10px;
+	font-weight: 500;
+}
+
+#content .Dashboard-Page .box-info {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+	grid-gap: 8px;
+	margin-top: 12px;
+}
+
+/* for the box */
+
+#content .Dashboard-Page .box-info li {
+	height: 80px;
+	padding: 12px;
+	background: var(--light);
+	border-radius: 15px;
+	display: flex;
+	align-items: center;
+	grid-gap: 24px;
+}
+
+/* controlling the icon size */
+
+#content .Dashboard-Page .box-info li .bx {
+	width: 40px;
+	height: 40px;
+	border-radius: 10px;
+	font-size: 32px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* For selecting the color of icosn */
+#content .Dashboard-Page .box-info .water-data li:nth-child(1) .bx {
+	background: var(--light-blue);
+	color: var(--blue);
+}
+#content .Dashboard-Page .box-info .water-data li:nth-child(2) .bx {
+	background: var(--light-yellow);
+	color: var(--yellow);
+}
+#content .Dashboard-Page .box-info .water-data li:nth-child(3) .bx {
+	background: var(--light-orange);
+	color: var(--orange);
+}
+#content .Dashboard-Page .box-info .water-data li:nth-child(4) .bx {
+	background: var(--light-yellow);
+	color: var(--orange);
+}
+
+/* For selecting the color of icosn */
+#content .Dashboard-Page .box-info li:nth-child(1) .bx {
+	background: var(--light-blue);
+	color: var(--blue);
+}
+#content .Dashboard-Page .box-info li:nth-child(2) .bx {
+	background: var(--light-yellow);
+	color: var(--yellow);
+}
+#content .Dashboard-Page .box-info li:nth-child(3) .bx {
+	background: var(--light-orange);
+	color: var(--orange);
+}
+#content .Dashboard-Page .box-info li:nth-child(4) .bx {
+	background: var(--light-yellow);
+	color: var(--orange);
+}
+#content .Dashboard-Page .box-info li:nth-child(4) .bx {
+	background: var(--light-yellow);
+	color: var(--red);
+}
+
+/* Font inside the boxes */
+#content .Dashboard-Page .box-info li .text h3 {
+	font-size: 18px;
+	font-weight: 600;
+	color: var(--dark);
+	margin-left: -10px;
+	margin-right: -10px;
+}
+
+#content .Dashboard-Page .air-quality-header{
+	color: var(--dark);
+	padding: 5px 0px;
+	font-size: 15px;
+}
+
+#content .Dashboard-Page .water-quality-header{
+	color: var(--dark);
+	padding-top: 15px;
+	padding-bottom: 5px;
+	font-size: 15px;
+}
+
+#content .Dashboard-Page .timer-Control{
+	margin-top: 10px;
+	border-radius: 20px;
+	width: auto;
+	height: 120px;
+	background-color: #F9F9F9;
+	
+}
+
+#content .Dashboard-Page .historicChart{
+	border-radius: 20px;
+	padding: 1% 2%;
+	background-color: #F9F9F9;
+	width: auto;
+	height: auto;
+}
+
+#content .Dashboard-Page .Download-Button{
+	font-family: var(--poppins);
+	font-size: 12px;
+	padding-top: 8px;
+	text-align: center;
+	color: #F9F9F9;
+	margin-top: 10px;
+	border-radius: 15px;
+	width: auto;
+	height: 45px;
+	background-color: #3C91E6;
+	
+}
+
+/* Profile Page */
+
+  /* Existing styles */
+  #content .profile-container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    text-align: center;
+    width: 350px;
+    transition: all 0.3s ease;
+	margin: auto;
+	margin-top: 5%;
+  }
+  .profile-container:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+  .profile-picture {
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border: 4px solid #007bff;
+    margin-bottom: 30px;
+    transition: transform 0.3s ease;
+  }
+  .profile-picture:hover {
+    transform: scale(1.05);
+  }
+  .info {
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: #333;
+  }
+  .info strong {
+    display: block;
+    color: #007bff;
+    font-weight: 500;
+    margin-bottom: 5px;
+  }
+  .edit-button {
+    padding: 10px 20px;
+	margin-top: 10px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+  }
+  .edit-button:hover {
+    background-color: #0056b3;
+  }
+
+  /* New styles for edit mode */
+  .hidden { display: none; }
+  .visible { display: block; }
+
+  input[type="text"], input[type="email"], input[type="password"] {
+  flex-grow: 1; /* Allows input to take up the remaining space */
+  padding: 10px;
+  width: calc(70% - 20px);
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  }
+  .button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .button:hover {
+    background-color: #0056b3;
+  }
+  .button.secondary {
+    background-color: #6c757d;
+  }
+  .button.secondary:hover {
+    background-color: #5a6268;
+  }
+  .form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  }
+  
+  label {
+  font-weight: bold;
+  text-align: left;
+  width: calc(30% - 0px);;
+  margin-right: 10px; /* Adjust the space between label and input as needed */
+  }
+
+  #phone-number{
+	margin-bottom: 10px;
+  }
+
+  #logoutbtn {
+	width: 100px;
+	height: 100px;
+  }
+
+/* Toggling between sidebar menus */
+
+/* CONTENT */
+
+@media screen and (max-width: 1200px) {
+	#content .Dashboard-Page .box-info {
+	  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+	}
+  }
+
+@media screen and (max-width: 700px) {
+	
+	#sidebar {
+		width: 200px;
+	}
+
+	#content {
+		width: calc(100% - 60px); /* */
+		left: 200px;
+	}
+
+	#content .Dashboard-Page .box-info {
+		grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+}
+
+}

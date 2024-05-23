@@ -39,6 +39,10 @@ const userData = mongoose.Schema({
         type:String,
         required:true,
     },
+    country: {
+        type:String,
+        required:true,
+    },
     phone: {
         type:String,
         required:true,
@@ -149,31 +153,22 @@ async function postSignUpPage(req, res) {
     let salt = bcrypt.genSaltSync(saltRounds);
 
     const hashedPassword = bcrypt.hashSync(req.body.signUpPassword, salt);
-    const emailUnique = await signUpData.findOne({ email: req.body.signUpEmail });
 
-    if(emailUnique){
-        console.log("duplicate email");
-        res.json({ message: 'Email is already registered' });
-    }
-
-    else{
-        console.log("unique email:");
-        try {
-            await signUpData.create({
-                name: req.body.signUpName,
-                email: req.body.signUpEmail,
-                deviceId: req.body.signUpDeviceId, // Store the device ID as plain text
-                phone: req.body.signUpPhone,
-                password: hashedPassword,
-            });
-            res.json({ message: 'Sucessfully Registered' });
-            console.log("sucess");
-        } catch (err) {
-            console.error(err);
-            // Send an error message that will be displayed in a popup on the client side
-            res.render('signup', { message: 'An error occurred during sign up.', error: err });
-        }
-
+    try {
+        await signUpData.create({
+            name: req.body.signUpName,
+            email: req.body.signUpEmail,
+            deviceId: req.body.signUpDeviceId, // Store the device ID as plain text
+            country: req.body.signUpCountry,
+            phone: req.body.signUpPhone,
+            password: hashedPassword,
+        });
+        res.redirect('/auth/login');
+        console.log("sucess");
+    } catch (err) {
+        console.error(err);
+        // Send an error message that will be displayed in a popup on the client side
+        res.render('signup', { message: 'An error occurred during sign up.', error: err });
     }
 }
 

@@ -1,140 +1,282 @@
+<!-- NEW -->
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Signup Page</title>
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<!-- Animate.css for animations -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
-<!-- Include intl-tel-input for phone number input -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
-<style>
-  body {
-    background-color: #f7f7f7;
-    font-family: 'Roboto', sans-serif;
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+        <!-- ===== BOX ICONS ===== -->
+        <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+
+        <title>Signup Page</title>
+        
+        <style>
+
+            /*===== GOOGLE FONTS =====*/
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap");
+
+/*===== VARIABLES CSS =====*/
+:root{
+  /*===== Colores =====*/
+  --first-color: #9D4BFF;
+  --first-color-dark: #23004D;
+  --first-color-light: #A49EAC;
+  --first-color-lighten: #F2F2F2;
+
+  /*===== Font and typography =====*/
+  --body-font: 'Open Sans', sans-serif;
+  --h1-font-size: 1.5rem;
+  --normal-font-size: .938rem;
+  --small-font-size: .813rem;
+}
+
+@media screen and (min-width: 768px){
+  :root{
+    --normal-font-size: 1rem;
+    --small-font-size: .875rem;
   }
-  .signup-container {
-    min-height: 100vh;
-    display: flex;
+}
+
+/*===== BASE =====*/
+*,::before,::after{
+  box-sizing: border-box;
+}
+
+body{
+  margin: 0;
+  padding: 0;
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+  color: var(--first-color-dark);
+}
+
+h1{
+  margin: 0;
+}
+
+a{
+  text-decoration: none;
+}
+
+img{
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/*===== LOGIN =====*/
+.login{
+  display: grid;
+  grid-template-columns: 100%;
+  height: 100vh;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
+
+.login__content{
+  display: grid;
+}
+
+.login__img{
+  justify-self: center;
+}
+
+.login__img img{
+  width: 310px;
+  margin-top: 1.5rem;
+}
+
+.login__forms{
+  position: relative;
+  height: 368px;
+}
+
+.login__registre, .login__create{
+  position: absolute;
+  bottom: 1rem;
+  width: 100%;
+  background-color: var(--first-color-lighten);
+  padding: 1.5rem 1rem;
+  border-radius: 1rem;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(35,0,77,.2);
+  animation-duration: .4s;
+  animation-name: animate-login;
+}
+
+@keyframes animate-login{
+  0%{
+    transform: scale(1,1);
+  }
+  50%{
+    transform: scale(1.1,1.1);
+  }
+  100%{
+    transform: scale(1,1);
+  }
+}
+
+.login__title{
+  font-size: var(--h1-font-size);
+  margin-bottom: 1.5rem;
+}
+
+.login__box{
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: .5rem;
+  padding: 0.85rem 1rem;
+  background-color: #FFF;
+  margin-top: 1rem;
+  border-radius: .5rem;
+}
+
+.login__icon{
+  font-size: 1.5rem;
+  color: var(--first-color);
+}
+
+.login__input{
+  border: none;
+  outline: none;
+  font-size: var(--normal-font-size);
+  font-weight: 550;
+  color: var(--first-color-dark);
+}
+
+.login__input::placeholder{
+  font-size: var(--normal-font-size);
+  font-family: var(--body-font);
+  color: var(--first-color-light);
+}
+
+.login__button{
+  display: block;
+  padding: 1rem;
+  margin: 1rem 0;
+  background-color: var(--first-color);
+  color: #FFF;
+  font-weight: 600;
+  text-align: center;
+  border-radius: .5rem;
+  transition: .3s;
+}
+
+.login__button:hover{
+  background-color: var(--first-color-dark);
+}
+
+.login__account, .login__signin, .login__signup{
+  font-weight: 600;
+  font-size: var(--small-font-size);
+}
+
+.login__account{
+  color: var(--first-color-dark);
+}
+
+
+/* ===== MEDIA QUERIES =====*/
+@media screen and (min-width: 576px){
+  .login__forms{
+    width: 348px;
+    justify-self: center;
+  }
+}
+
+@media screen and (min-width: 1024px){
+  .login{
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .login__content{
+    grid-template-columns: repeat(2, max-content);
     justify-content: center;
     align-items: center;
+    margin-left: 10rem;
   }
-  .signup-form {
-    padding: 2rem;
-    background: #fff;
-    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
-    border-radius: 0.5rem;
+
+  .login__img{
+    display: flex;
+    width: 600px;
+    height: 588px;
+    background-color: var(--first-color-lighten);
+    border-radius: 1rem;
+    padding-left: 1rem;
   }
-  .signup-form .form-control {
-    border-radius: 2rem;
+
+  .login__img img{
+    width: 390px;
+    margin-top: 0;
   }
-  .signup-form .btn {
-    border-radius: 2rem;
-    padding: 0.5rem 1.5rem;
+
+  .login__registre, .login__create{
+    left: -11rem;
   }
-  .signup-form .btn:focus {
-    box-shadow: none;
+
+  .login__registre{
+    bottom: -3rem;
   }
-  .country-list {
-    width: 100%;
+
+  .login__create{
+    bottom: -5.5rem;
   }
-  .selected-flag {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    height: 100%;
-  }
+}
 
 </style>
-</head>
-<body>
-<div class="container">
-  <div class="signup-container">
-    <div class="signup-form animated fadeIn">
-      <!-- Logo Placeholder -->
-      <div class="text-center mb-4">
-        <img src="logo.png" alt="Logo" style="width: 100px;">
-      </div>
-      <!-- Signup Form -->
-      <form id="signupForm">
-        <div class="form-group">
-          <input type="name" class="form-control" placeholder="Name" name="name" required>
-        </div>
-        <div class="form-group">
-          <input type="email" class="form-control" placeholder="Email" name="email" required>
-        </div>
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Device ID" name="deviceID" required>
-        </div>
-        <div class="form-group">
-          <!-- Modified: Integrated ISD code selection with phone number -->
-          <div>
+    </head>
+    <body>
+        <div class="login">
+            <div class="login__content">
+                <div class="login__img">
+                    <img src="https://ucarecdn.com/0a117933-7fee-4a91-ab0d-654c14b55739/BannerLoginPage.svg" alt="Login\img-login.svg">
+                </div>
 
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="Country" name="country" required>
-            </div>
+                <div class="login__forms">
+                    <form action="" class="login__registre" id="login-in">
+                        <h1 class="login__title">Sign Up</h1>
     
-            <div class="form-group">
-              <input type="tel" class="form-control" id="phone" placeholder="Phone" name="phone" pattern="[0-9]+" required>
+                        <div class="login__box">
+                            <i class='bx bx-user login__icon'></i>
+                            <input type="text" placeholder="Name" name="name" class="login__input" required>
+                        </div>
+    
+                        <div class="login__box">
+                            <i class='bx bx-envelope login__icon'></i> 
+                            <input type="email" placeholder="Email Address" name="email" class="login__input" required>
+                        </div>
+                            
+                        <div class="login__box">
+                          <i class='bx bx-devices login__icon'></i>
+                          <input type="text" placeholder="Device ID" name="deviceID" class="login__input" required>
+                      </div>
+  
+                      <div class="login__box">
+                          <i class='bx bx-phone login__icon'></i>
+                          <input type="text" placeholder="Phone No" name="phone" pattern="[0-9]+" class="login__input" required>
+                      </div>
+                          
+                      <div class="login__box">
+                        <i class='bx bx-lock-alt login__icon'></i>
+                        <input type="password" placeholder="Password" name="password" class="login__input" required>
+                    </div>
+
+                        <a type="button" name="submit" class="login__button" id="signupButton">Sign Up</a>
+
+                        <div>
+                            <span class="login__account">Have an account?</span>
+                            <a href='login' name="submit" class="login__signup">Sign In</a>
+                        </div>
+                    </form>
+
+                </div>
             </div>
-
-          </div>
         </div>
-        <div class="form-group">
-          <input type="password" class="form-control" placeholder="Password" name="password" minlength="8" required>
-        </div>
-        <button type="submit" name="submit" class="btn btn-primary btn-block" id="signupButton">Sign Up</button>
-        <button type="button" onclick="location.href='/auth/login';" class="btn btn-link btn-block">Login</button>
-      </form>
-    </div>
-  </div>
-</div>
-<!-- Bootstrap and jQuery libraries -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<!-- intl-tel-input library -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
-<!-- Script to initialize intl-tel-input and populate countries -->
-<script>
-  $(document).ready(function() {
-    var input = document.querySelector("#phone");
-    var iti = window.intlTelInput(input, {
-      utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
-    });
 
-    // Populate country dropdown
-    var countryData = iti.getCountryData();
-    $.each(countryData, function(i, country) {
-      $('#country').append($('<option>', {
-        value: country.iso2,
-        text: country.name
-      }));
-    });
-
-    // Change country code on country select
-    $('#country').change(function() {
-      iti.setCountry(this.value);
-    });
-
-    // Sync country selection with entered phone number
-    input.addEventListener('countrychange', function() {
-      $('#country').val(iti.getSelectedCountryData().iso2);
-    });
-
-    // Form submission handler
-    $('#signup-form').submit(function(e) {
-      e.preventDefault();
-      // Process form submission here
-    });
-  });
-</script>
-</body>
+    </body>
 </html>
-
-<!-- ROUTING -->
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -148,10 +290,22 @@ btn.addEventListener('click', async function(e) {
   let signUpName = document.querySelector('input[name="name"]').value;
   let signUpEmail = document.querySelector('input[name="email"]').value;
   let signUpDeviceId = document.querySelector('input[name="deviceID"]').value;
-  let signUpCountry = document.querySelector('input[name="country"]').value;
   let signUpPhone = document.querySelector('input[name="phone"]').value;
   let signUpPassword = document.querySelector('input[name="password"]').value;
 
+  // Validate Name
+  let nameRegex = /^[A-Za-z]+(\s[A-Za-z]+)*$/;
+  if (!nameRegex.test(signUpName)) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Invalid Name',
+        text: 'Name must contain only letters and cannot be blank.',
+        width: '250px',
+        height: '250px'
+      });
+      return ;
+  }
+    
   // Validate email
   let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(signUpEmail)) {
@@ -163,6 +317,18 @@ btn.addEventListener('click', async function(e) {
         height: '250px'
       });
       return;
+    }
+    
+    // Validate password length
+    if (signUpDeviceId.length < 8) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'DeviceId Invalid',
+        text: 'Check your deviceID',
+        width: '250px',
+        height: '250px'
+      });
+    return;
     }
 
     // Validate password length
@@ -190,51 +356,63 @@ btn.addEventListener('click', async function(e) {
       return;
     }
 
-  try {
-    let resp = await axios.post('/auth/signup', {
+    try {
+
+    let response = await axios.post('/auth/signup', {
       signUpName, 
       signUpEmail, 
-      signUpDeviceId, 
-      signUpCountry, 
+      signUpDeviceId,  
       signUpPhone, 
       signUpPassword
     });
-
+    
     // Check if the signup was successful and redirect
-    if (resp.status === 200) {
-      setTimeout(() => { // Delay the success popup
-        Swal.fire({
-          icon: 'success',
-          title: 'Signed Up!',
-          text: 'Your account has been created successfully.',
-          width: '250px', // Apply custom styles
-          height: '250px'
-        }).then((result) => {
-          // Redirect to the login page after the user acknowledges the alert
-          if (result.value) {
-            window.location.href = '/auth/login';
-          }
-        });
-      }, 500); // 500 milliseconds delay
-    } else {
-      // Use SweetAlert to show an error message
+
+    if (response.data.message === 'Email is already registered') {
+      // Handle successful signup
       Swal.fire({
         icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong with your signup!',
-        width: '250px', // Apply custom styles
+        title: 'Email Already Registered',
+        text: 'Email address is already registered',
+        width: '250px',
         height: '250px'
       });
     }
+    else if (response.data.message === 'Sucessfully Registered') {
+      // Handle successful signup
+      Swal.fire({
+        icon: 'success',
+        title: 'Signed Up!',
+        text: 'Your account has been created successfully.',
+        width: '250px',
+        height: '250px'
+      }).then((result) => {
+        if (result.value) {
+          window.location.href = '/auth/login';
+        }
+      });
+    }
+    else {
+      // Handle other messages or successful registration
+      Swal.fire({
+        icon: 'error',
+        title: 'error',
+        text: 'an error occured',
+        width: '250px',
+        height: '250px'
+      });
+    }
+    
   } catch (error) {
-    // Use SweetAlert to show an error message
+    // Handle errors during the request
     Swal.fire({
       icon: 'error',
       title: 'Oops...',
       text: 'An error occurred during sign up.',
-      width: '250px', // Apply custom styles
+      width: '250px',
       height: '250px'
     });
   }
 });
+
 </script>
