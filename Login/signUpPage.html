@@ -219,11 +219,23 @@ img{
   .login__registre{
     bottom: -3rem;
   }
+<<<<<<< HEAD
 
   .login__create{
     bottom: -5.5rem;
   }
 }
+=======
+  .country-list {
+    width: 100%;
+  }
+  .selected-flag {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 100%;
+  }
+>>>>>>> 8c36e1e8bf6e98abe7a6872fb9454eddcf801ebc
 
 </style>
     </head>
@@ -274,8 +286,64 @@ img{
                 </div>
             </div>
         </div>
+<<<<<<< HEAD
 
     </body>
+=======
+        <div class="form-group">
+          <input type="password" class="form-control" placeholder="Password" name="password" required>
+        </div>
+        <button id="signUpbtn" type="submit" name="submit" class="btn btn-primary btn-block">Sign Up</button>
+        <button type="button" onclick="location.href='/auth/login';" class="btn btn-link btn-block">Login</button>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Bootstrap and jQuery libraries -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<!-- intl-tel-input library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+
+<!-- Script to initialize intl-tel-input and populate countries -->
+<script>
+  $(document).ready(function() {
+    var input = document.querySelector("#phone");
+    var iti = window.intlTelInput(input, {
+      utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+    });
+
+    // Populate country dropdown
+    var countryData = iti.getCountryData();
+    $.each(countryData, function(i, country) {
+      $('#country').append($('<option>', {
+        value: country.iso2,
+        text: country.name
+      }));
+    });
+
+    // Change country code on country select
+    $('#country').change(function() {
+      iti.setCountry(this.value);
+    });
+
+    // Sync country selection with entered phone number
+    input.addEventListener('countrychange', function() {
+      $('#country').val(iti.getSelectedCountryData().iso2);
+    });
+
+    // Form submission handler
+    $('#signupForm').submit(function(e) {
+      e.preventDefault();
+      // Process form submission here (e.g., send data to server)
+      // ...
+    });
+  });
+</script>
+</body>
+>>>>>>> 8c36e1e8bf6e98abe7a6872fb9454eddcf801ebc
 </html>
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
