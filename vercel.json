@@ -11,10 +11,6 @@
         "src": "/(.*)",
         "dest": "/server.js"
       }
-    ],
-    "env": {
-      "MongoDb_Link": "@mongo_db_link",
-      "jwt_key": "@jwt_key"
-    }
+    ]
   }
   
